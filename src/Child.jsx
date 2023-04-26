@@ -1,8 +1,35 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export function Child() {
   const [age, setAge] = useState(0)
   const [name, setName] = useState("")
+
+  useEffect(() => {
+    console.log('Re-Render')
+  })
+
+  useEffect(() => {
+    console.log('HI')
+
+    return () => {
+      console.log('bye')
+    }
+  }, [])
+
+  useEffect(() => {
+    console.log(`my name is ${name} and i am ${age} years old`)
+  }, [name, age])
+
+  useEffect(() => {
+    document.title = name 
+
+    setTimeout(() => {
+      console.log(`My name is ${name}`)
+    }, 1000)
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [name])
 
   return (
     <div>
